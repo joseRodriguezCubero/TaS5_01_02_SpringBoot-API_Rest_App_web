@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.exceptions;
+package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,26 +12,26 @@ import java.util.Date;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(SucursalNotFoundException.class)
-    public ResponseEntity<ErrorMessage> sucursalNotFoundException(SucursalNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(FlorNotFoundException.class)
+    public ResponseEntity<ErrorMessage> florNotFoundException(FlorNotFoundException ex, WebRequest request) {
         ErrorMessage message = new ErrorMessage(
                 HttpStatus.NOT_FOUND.value(),
                 new Date(),
                 ex.getMessage(),
                 request.getDescription(false));
 
-        return new ResponseEntity<ErrorMessage>(message, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(SucursalAlreadyExistException.class)
-    public ResponseEntity<ErrorMessage> sucursalAlreadyExistException(SucursalAlreadyExistException ex, WebRequest request) {
+    @ExceptionHandler(FlorAlreadyExistException.class)
+    public ResponseEntity<ErrorMessage> florAlreadyExistException(FlorAlreadyExistException ex, WebRequest request) {
         ErrorMessage message = new ErrorMessage(
                 HttpStatus.CONFLICT.value(),
                 new Date(),
                 ex.getMessage(),
                 request.getDescription(false));
 
-        return new ResponseEntity<ErrorMessage>(message, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(message, HttpStatus.CONFLICT);
     }
 
 
@@ -44,6 +44,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false));
 
-        return new ResponseEntity<ErrorMessage>(message, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(message, HttpStatus.CONFLICT);
     }
 }

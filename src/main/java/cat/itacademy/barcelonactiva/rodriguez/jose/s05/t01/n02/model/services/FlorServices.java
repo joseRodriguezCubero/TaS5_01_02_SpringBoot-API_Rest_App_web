@@ -1,35 +1,22 @@
-package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.services;
+package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.services;
 
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.dto.SucursalDto;
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.entity.Sucursal;
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.exceptions.SucursalNotFoundException;
+import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.dto.FlorDTO;
+import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.exceptions.FlorNotFoundException;
 
 import java.util.List;
 
-public interface SucursalServices {
+public interface FlorServices {
 
-    void deleteSucursalById(Long id) throws SucursalNotFoundException;
-    SucursalDto createSucursal(SucursalDto sucursal);
+    void deleteFlorById(Long id) throws FlorNotFoundException;
+    FlorDTO createFlor(FlorDTO florDTO);
 
-    SucursalDto getSucursalById(Long sucursalId);
+    FlorDTO getFlorById(Long florId);
 
-    List<SucursalDto> getAllSucursals();
+    List<FlorDTO> getAllFlowers();
 
-    SucursalDto updateSucursal(SucursalDto sucursal);
-
+    FlorDTO updateFlor(FlorDTO florDTO, Long id);
 
 }
 
 
-
-
-/*UserDto createSucursal(UserDto user);
-
-    SucursalDto getSucursalById(Long sucursalId);
-
-    List<SucursalDto> getAllSucursals();
-
-    SucursalDto updateSucursal(SucursalDto sucursal);
-
-    void deleteSucursal(Long sucursalId);*/
 

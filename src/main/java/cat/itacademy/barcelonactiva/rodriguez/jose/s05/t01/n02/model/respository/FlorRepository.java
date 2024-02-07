@@ -1,11 +1,12 @@
-package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.repository;
+package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.respository;
 
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.entity.Sucursal;
+import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.entity.Flor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 
-
-public interface SucursalRepository extends JpaRepository<Sucursal, Long> {
-
-
+@Repository
+public interface FlorRepository extends JpaRepository<Flor, Long> {
+    Optional<Flor> findByNomFlorIgnoreCase (String name);
 }

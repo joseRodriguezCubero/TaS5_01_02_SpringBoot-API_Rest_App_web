@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.exceptions;
+package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.exceptions;
 
 
 import lombok.AllArgsConstructor;

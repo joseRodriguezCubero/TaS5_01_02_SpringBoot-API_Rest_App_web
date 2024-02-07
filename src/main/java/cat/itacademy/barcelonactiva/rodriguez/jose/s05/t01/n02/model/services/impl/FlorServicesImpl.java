@@ -1,106 +1,71 @@
-package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.services.impl;
+package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.services.impl;
 
+import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.dto.FlorDTO;
+import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.entity.Flor;
+import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.exceptions.FlorAlreadyExistException;
+import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.exceptions.FlorNotFoundException;
+import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.respository.FlorRepository;
+import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.services.FlorMapper;
+import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.services.FlorServices;
 
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.dto.SucursalDto;
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.entity.Sucursal;
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.exceptions.SucursalAlreadyExistException;
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.exceptions.SucursalNotFoundException;
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.repository.SucursalRepository;
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.services.SucursalServices;
-import cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.services.SucursalMapper;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 
-    @Service
-    @AllArgsConstructor
-    public class SucursalServicesImpl implements SucursalServices {
+@Service
+@RequiredArgsConstructor
+public class FlorServicesImpl implements FlorServices {
 
-        private SucursalRepository sucursalRepository;
+    private final FlorRepository florRepository;
 
-        @Override
-        public SucursalDto createSucursal(SucursalDto sucursalDto) {
-            // Convert UserDto into User JPA Entity
-            Sucursal sucursal = SucursalMapper.mapToSucursal(sucursalDto);
-            Sucursal savedSucursal = sucursalRepository.save(sucursal);
-            // Convert User JPA entity to UserDto
-            SucursalDto savedSucursalDto = SucursalMapper.mapToSucursalDto(savedSucursal);
-            return savedSucursalDto;
-        }
-
-        @Override
-        public SucursalDto getSucursalById(Long sucursalId) {
-            Optional<Sucursal> optionalSucursal = sucursalRepository.findById(sucursalId);
-            Sucursal sucursal = optionalSucursal.get();
-            return SucursalMapper.mapToSucursalDto(sucursal);
-        }
-
-        @Override
-        public List<SucursalDto> getAllSucursals() {
-            List<Sucursal> users = sucursalRepository.findAll();
-            return users.stream().map(SucursalMapper::mapToSucursalDto)
-                    .collect(Collectors.toList());
-        }
-
-        @Override
-        public SucursalDto updateSucursal(SucursalDto sucursal) {
-            Sucursal existingUser = sucursalRepository.findById(sucursal.getPk_SucursalID()).get();
-            existingUser.setNomSucursal(sucursal.getNomSucursal());
-            existingUser.setCountry(sucursal.getCountry());
-            Sucursal updatedSucursal = sucursalRepository.save(existingUser);
-            return SucursalMapper.mapToSucursalDto(updatedSucursal);
-        }
-
-
-        @Override
-        public void deleteSucursalById(Long id) {
-            Sucursal existingSucursal = sucursalRepository.findById(id)
-                    .orElseThrow(() -> new SucursalNotFoundException("Fruit Not Found with ID: " + id));
-            sucursalRepository.deleteById(existingSucursal.getPk_SucursalID());
-        }
+    @Override
+    public FlorDTO createFlor(FlorDTO florDTO) {
+        // Convert UserDto into User JPA Entity
+        Flor flor = FlorMapper.mapToFlor(florDTO);
+        florRepository.findByNomFlorIgnoreCase(flor.getNomFlor())
+                .ifPresent(flower -> {
+                    throw new FlorAlreadyExistException("Already exist flower with given name:" + flor.getNomFlor());
+                });
+        Flor savedFlor = florRepository.save(flor);
+        // Convert User JPA entity to UserDto
+        return FlorMapper.mapToFlorDTO(savedFlor);
     }
 
 
+    @Override
+    public FlorDTO getFlorById(Long florId) {
+        Flor flor = florRepository.findById(florId).orElseThrow(() -> new FlorNotFoundException("Flor Not Found with ID: " + florId));
+        return FlorMapper.mapToFlorDTO(flor);
+    }
 
-    /*@Service
-    @AllArgsConstructor
-    public class UserServiceImpl implements UserService {
+    @Override
+    public List<FlorDTO> getAllFlowers() {
+        List<Flor> flowers = florRepository.findAll();
+        return flowers.stream().map(FlorMapper::mapToFlorDTO)
+                .collect(Collectors.toList());
+    }
 
-        private UserRepository userRepository;
-
-
-
-        @Override
-        public UserDto getUserById(Long userId) {
-            Optional<User> optionalUser = userRepository.findById(userId);
-            User user = optionalUser.get();
-            return UserMapper.mapToUserDto(user);
+    @Override
+    public FlorDTO updateFlor(FlorDTO florDTO, Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Flor ID cannot be null");
         }
+        Flor existingFlor = florRepository.findById(id)
+                .orElseThrow(() -> new FlorNotFoundException("Flower Not Found with ID: " + id));
+        existingFlor.setNomFlor(florDTO.getNomFlor());
+        existingFlor.setPaisFlor(florDTO.getPaisFlor());
+        Flor updatedFlor = florRepository.save(existingFlor);
+        return FlorMapper.mapToFlorDTO(updatedFlor);
+    }
 
-        @Override
-        public List<UserDto> getAllUsers() {
-            List<User> users = userRepository.findAll();
-            return users.stream().map(UserMapper::mapToUserDto)
-                    .collect(Collectors.toList());
-        }
 
-        @Override
-        public UserDto updateUser(UserDto user) {
-            User existingUser = userRepository.findById(user.getId()).get();
-            existingUser.setFirstName(user.getFirstName());
-            existingUser.setLastName(user.getLastName());
-            existingUser.setEmail(user.getEmail());
-            User updatedUser = userRepository.save(existingUser);
-            return UserMapper.mapToUserDto(updatedUser);
-        }
-
-        @Override
-        public void deleteUser(Long userId) {
-            userRepository.deleteById(userId);
-        }
-    }*/
-
+    @Override
+    public void deleteFlorById(Long id) {
+        Flor existingFlor = florRepository.findById(id)
+                .orElseThrow(() -> new FlorNotFoundException("Flower Not Found with ID: " + id));
+        florRepository.deleteById(existingFlor.getPk_FlorID());
+    }
+}

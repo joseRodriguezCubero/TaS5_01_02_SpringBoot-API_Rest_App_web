@@ -1,9 +1,9 @@
-package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n01.model.exceptions;
+package cat.itacademy.barcelonactiva.rodriguez.jose.s05.t01.n02.model.exceptions;
 
-public class SucursalNotFoundException extends RuntimeException{
+public class FlorNotFoundException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 
-    public SucursalNotFoundException(String msg) {
+    public FlorNotFoundException(String msg) {
         super(msg);
     }
 }
