@@ -29,7 +29,7 @@ public class FlorController {
     @Operation(
             summary = "Get All Flowers",
             description = "Get all Flower objects. The response is a list of all objects with id, name, country and the type of Euro or Not Euro country",
-            tags = { "flowers", "get" })
+            tags = {"get"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Flor.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
@@ -42,7 +42,7 @@ public class FlorController {
     @Operation(
             summary = "Retrieve a Flower by Id",
             description = "Get a Flower object by specifying its id. The response is Flower object with id, title, description and published status.",
-            tags = { "flowers", "get" })
+            tags = {"get"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Flor.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", description = "The Flower with given Id was not found.", content = { @Content(schema = @Schema()) }),
@@ -57,7 +57,7 @@ public class FlorController {
     @Operation(
             summary = "Create a Flower",
             description = "Create a Flower object. The response is a httpStatus showing the result of the operation.",
-            tags = { "flowers", "post" })
+            tags = {"post"})
     @ApiResponses({
             @ApiResponse(responseCode = "201", content = {
                     @Content(schema = @Schema(implementation = Flor.class), mediaType = "application/json") }),
@@ -72,7 +72,7 @@ public class FlorController {
     @Operation(
             summary = "Update a Flower by Id",
             description = "Update a Flower object by specifying its id. The response is a httpStatus showing the result of the operation.",
-            tags = { "flowers", "put" })
+            tags = {"put"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Flor.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "404", description = "The Flower with given Id was not found.", content = { @Content(schema = @Schema()) }),
@@ -87,7 +87,7 @@ public class FlorController {
     @Operation(
             summary = "Delete a Flower by Id",
             description = "Delete a Flower object by specifying its id. The response is a httpStatus showing the result of the operation.",
-            tags = { "flowers", "delete" })
+            tags = {"delete"})
     @ApiResponses({ @ApiResponse(responseCode = "204", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "404", description = "The Flower with given Id was not found.", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
